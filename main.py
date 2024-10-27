@@ -1,5 +1,6 @@
 from reporter import write_html_report
 from models import GitHubUser
+from webbrowser import open_new_tab
 import requests
 import config
 
@@ -22,21 +23,21 @@ def compare_followers_and_following(username):
     followers = fetch_github_users(followers_url)
     following = fetch_github_users(following_url)
 
-    follower_logins = [follower.login for follower in followers]
-    following_logins = [followed.login for followed in following]
+    follower_logins = {follower.login for follower in followers}
+    following_logins = {followed.login for followed in following}
 
-    # Users you follow but are not following you
-    print("\nTakip Ettiklerim (beni takip etmeyenler):")
-    for followed_user in following:
-        if followed_user.login not in follower_logins:
-            print(f'{followed_user.login} : {followed_user.html_url}')
+    class Report:
+        not_following_back = [user for user in following if user.login not in follower_logins]
+        not_followed_back = [user for user in followers if user.login not in following_logins]
 
-    # Users who follow you but you don't follow
-    print("\nBeni Takip Edenler (benim takip etmediklerim):")
-    for follower_user in followers:
-        if follower_user.login not in following_logins:
-            print(f'{follower_user.login} : {follower_user.html_url}')
+    return Report
+
+
+def main():
+    report = compare_followers_and_following(config.username)
+    report_output_dir = write_html_report(**report.__dict__)
+    open_new_tab(report_output_dir)
 
 
 if __name__ == '__main__':
-    compare_followers_and_following(config.username)
+    main()
