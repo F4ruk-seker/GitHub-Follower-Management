@@ -33,7 +33,7 @@ def compare_followers_and_following(username: str) -> dict[str, list]:
 
 
 def main():
-    report: dict = compare_followers_and_following(config.username)
+    report: dict[str, list] = compare_followers_and_following(config.username)
     report_output_dir: str = write_html_report(report)
 
     open_new_tab(report_output_dir)  # -> None
