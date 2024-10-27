@@ -6,31 +6,33 @@
     <title>GitHub Takipçi Yönetimi</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-secondary text-light fw-semibold">
     <div class="container mt-5">
-        <h1 class="text-center">GitHub Takipçi Yönetimi</h1>
+        <h1 class="text-center">GitHub Follower Management</h1>
         <div class="row mt-4">
             <div class="col-md-6">
-                <h3>Takip Ettiklerim (Beni Takip Etmeyenler)</h3>
+                <h4>My Followers (Those Who Don't Follow Me)</h4>
                 <ul class="list-group">
                     {% for user in not_following_back %}
-                        <li class="list-group-item">
+                        <li class="list-group-item bg-dark">
+                            <img class="rounded-circle" style="width: 36px; height: 36px;" src="{{ user.avatar_url }}" alt="{{ user.login }}_avatar_url">
                             <a href="{{ user.html_url }}" target="_blank">{{ user.login }}</a>
                         </li>
                     {% else %}
-                        <li class="list-group-item">Takip ettiğiniz kimse yok.</li>
+                        <li class="list-group-item bg-dark">You have no one to follow.</li>
                     {% endfor %}
                 </ul>
             </div>
             <div class="col-md-6">
-                <h3>Beni Takip Edenler (Benim Takip Etmediklerim)</h3>
+                <h4>People Following Me (People I Don't Follow)</h4>
                 <ul class="list-group">
                     {% for user in not_followed_back %}
-                        <li class="list-group-item">
+                        <li class="list-group-item bg-dark">
+                            <img class="rounded-circle" style="width: 36px; height: 36px;" src="{{ user.avatar_url }}" alt="{{ user.login }}_avatar_url">
                             <a href="{{ user.html_url }}" target="_blank">{{ user.login }}</a>
                         </li>
                     {% else %}
-                        <li class="list-group-item">Sizi takip eden kimse yok.</li>
+                        <li class="list-group-item bg-dark">There is no one following you.</li>
                     {% endfor %}
                 </ul>
             </div>
