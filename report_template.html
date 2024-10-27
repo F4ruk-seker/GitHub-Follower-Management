@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Takipçi Yönetimi</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">GitHub Takipçi Yönetimi</h1>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h3>Takip Ettiklerim (Beni Takip Etmeyenler)</h3>
+                <ul class="list-group">
+                    {% for user in not_following_back %}
+                        <li class="list-group-item">
+                            <a href="{{ user.html_url }}" target="_blank">{{ user.login }}</a>
+                        </li>
+                    {% else %}
+                        <li class="list-group-item">Takip ettiğiniz kimse yok.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h3>Beni Takip Edenler (Benim Takip Etmediklerim)</h3>
+                <ul class="list-group">
+                    {% for user in not_followed_back %}
+                        <li class="list-group-item">
+                            <a href="{{ user.html_url }}" target="_blank">{{ user.login }}</a>
+                        </li>
+                    {% else %}
+                        <li class="list-group-item">Sizi takip eden kimse yok.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
